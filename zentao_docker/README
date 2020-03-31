@@ -1,0 +1,5 @@
+docker-compose build  zentao
+docker-compose up -d   zentao
+ip:8098
+配置文件 有  .env   yml 
+

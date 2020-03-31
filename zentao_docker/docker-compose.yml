@@ -1,0 +1,31 @@
+version: '3'
+
+networks:
+  frontend:
+    driver: ${NETWORKS_DRIVER}
+  backend:
+    driver: ${NETWORKS_DRIVER}
+
+volumes:
+  gitlab:
+    driver: ${VOLUMES_DRIVER}
+  mongo:
+    driver: ${VOLUMES_DRIVER}
+
+services:
+### Zentao ##################################
+  zentao:
+    build:
+      context: ./zentao
+    restart: always
+    environment:
+      - TZ=${WORKSPACE_TIMEZONE}
+    volumes:
+      - ${DATA_PATH_HOST}/zentao/zentaopms:/app/zentaopms
+      - ${DATA_PATH_HOST}/zentao/mysql:/var/lib/mysql
+    ports:
+      - "${ZENTAO_HTTP_PORT}:80"
+    networks:
+      - frontend
+      - backend
+
